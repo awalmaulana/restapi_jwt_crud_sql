@@ -12,20 +12,21 @@ const {
   deleteUser
 } = require("./user.controller");
 
-router.get("/", checkToken, getUsers);
-router.post("/", checkToken, createUser);
-router.post("/statsiun/add", checkToken, createStatsiun);
+// router.get("/", checkToken, getUsers);contoh router dengan penggunaan token tambahkan checktoken di setip url
+router.get("/", getUsers);
+router.post("/",  createUser);
+router.post("/statsiun/",  createStatsiun);
 
 
 // router untuk memanggil data statsiun sesuai dengan username
-router.get("/statsiun/:stat", checkToken, getUsersByStatsiun);
+router.get("/statsiun/:stat",  getUsersByStatsiun);
 // router untuk memanggil data statsiun sesuai dengan tanggal rangge
-router.get("/laporan/:start/:end", checkToken, getStatsiunBydate);
+router.get("/laporan/:start/:end",  getStatsiunBydate);
 
 
-router.get("/:id", checkToken, getUserByUserId);
+router.get("/:id",  getUserByUserId);
 router.post("/login", login);
-router.patch("/", checkToken, updateUsers);
-router.delete("/", checkToken, deleteUser);
+router.patch("/",  updateUsers);
+router.delete("/",  deleteUser);
 
 module.exports = router;

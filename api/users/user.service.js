@@ -24,7 +24,7 @@ module.exports = {
       `insert into alat(waktu, statsiun, alat, merek, tahun, kondisi) 
                 values(?,?,?,?,?,?)`,
       [
-        new Date(),
+        new Date(new Date().toUTCString()),
         data.statsiun,
         data.alat,
         data.merek,
