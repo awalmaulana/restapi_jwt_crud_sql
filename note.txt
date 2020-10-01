@@ -1,0 +1,3 @@
+RESTAPI ini perlu pengembangan
+-tambah crud peralatan(data di DB)
+-buat versi postgreSQL untuk Api nya
