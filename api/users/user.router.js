@@ -16,18 +16,18 @@ const {
 } = require("./user.controller");
 
 // router.get("/", checkToken, getUsers);contoh router dengan penggunaan token tambahkan checktoken di setip url
-router.get("/", getUsers);
-router.post("/",  createUser);
-router.post("/statsiun/",  createStatsiun);
-router.patch("/statsiun/",  updateAlat);
-router.delete("/statsiun/",  deleteAlat);
+router.get("/", checkToken, getUsers);
+router.post("/", checkToken, createUser);
+router.post("/statsiun/", checkToken, createStatsiun);
+router.patch("/statsiun/",  checkToken, updateAlat);
+router.delete("/statsiun/",  checkToken, deleteAlat);
 
 
 
 // router untuk memanggil data statsiun sesuai dengan username
-router.get("/statsiun/:stat",  getUsersByStatsiun);
+router.get("/statsiun/:stat", checkToken, getUsersByStatsiun);
 // router untuk memanggil data statsiun sesuai dengan tanggal rangge
-router.get("/laporan/:start/:end",  getStatsiunBydate);
+router.get("/laporan/:start/:end", checkToken, getStatsiunBydate);
 
 
 router.get("/:id",  getUserByUserId);
