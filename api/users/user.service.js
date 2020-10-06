@@ -21,15 +21,16 @@ module.exports = {
   createStatsiun: (data, callBack) => {
 
     pool.query(
-      `insert into alat(waktu, statsiun, alat, merek, tahun, kondisi) 
-                values(?,?,?,?,?,?)`,
+      `insert into alat(waktu, statsiun, alat, merek, tahun, kondisi,catatan) 
+                values(?,?,?,?,?,?,?)`,
       [
-        new Date(new Date().toUTCString()),
+       new Date(new Date().toUTCString()),
         data.statsiun,
         data.alat,
         data.merek,
         data.tahun,
-        data.kondisi
+        data.kondisi,
+        data.catatan
       ],
       (error, results, fields) => {
         if (error) {
@@ -77,7 +78,7 @@ module.exports = {
   },
  getUsersByStatsiun: (stat, callBack) => {
     pool.query(
-      `SELECT alat.id_alt, alat.waktu, alat.statsiun, alat.alat, alat.merek, alat.tahun, alat.kondisi  FROM users JOIN alat USING(statsiun) where username = ?`,
+      `SELECT alat.id_alt, alat.waktu, alat.statsiun, alat.alat, alat.merek, alat.tahun, alat.kondisi,alat.catatan FROM users JOIN alat USING(statsiun) where username = ?`,
       [stat],
       (error, results, fields) => {
         if (error) {
@@ -108,6 +109,40 @@ module.exports = {
         data.statsiun,
         data.id
       ],
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
+
+  updateAlat: (data, callBack) => {
+    pool.query(
+      `update alat set  statsiun=?, alat=?, merek=?, tahun=?, kondisi=?, catatan=? where id_alt=?`,
+      [
+        // new Date(new Date().toUTCString()),
+        data.statsiun,
+        data.alat,
+        data.merek,
+        data.tahun,
+        data.kondisi,
+        data.catatan,
+        data.id_alt
+      ],
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results[0]);
+      }
+    );
+  },
+  deleteAlat: (data, callBack) => {
+    pool.query(
+      `delete from alat where id_alt = ?`,
+      [data.id_alt],
       (error, results, fields) => {
         if (error) {
           callBack(error);

@@ -8,6 +8,8 @@ const {
   getUsersByStatsiun,
   getStatsiunBydate,
   updateUser,
+  updateAlat,
+  deleteAlat,
   deleteUser
 } = require("./user.service");
 const { hashSync, genSaltSync, compareSync } = require("bcrypt");
@@ -157,6 +159,38 @@ module.exports = {
       });
     });
   },
+  updateAlat: (req, res) => {
+    const body = req.body;
+    updateAlat(body, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      return res.json({
+        success: 1,
+        message: "updated successfully"
+      });
+    });
+  },
+  deleteAlat: (req, res) => {
+    const data = req.body;
+    deleteAlat(data, (err, results) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+      if (!results) {
+        return res.json({
+          success: 1,
+          message: "Peralatan deleted successfully"
+        });
+      }
+      return res.json({
+        success: 0,
+        message: "Record Not Found"
+      });
+    });
+  },
   deleteUser: (req, res) => {
     const data = req.body;
     deleteUser(data, (err, results) => {
@@ -166,14 +200,17 @@ module.exports = {
       }
       if (!results) {
         return res.json({
-          success: 0,
-          message: "Record Not Found"
+          success: 1,
+          message: "user deleted successfully"  
         });
       }
       return res.json({
-        success: 1,
-        message: "user deleted successfully"
+        success: 0,
+        message: "Record Not Found"
+
       });
     });
   }
 };
+
+  

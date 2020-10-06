@@ -9,13 +9,19 @@ const {
   updateUsers,
   getUsersByStatsiun,
   getStatsiunBydate,
+  updateAlat,
+  deleteAlat,
   deleteUser
+
 } = require("./user.controller");
 
 // router.get("/", checkToken, getUsers);contoh router dengan penggunaan token tambahkan checktoken di setip url
 router.get("/", getUsers);
 router.post("/",  createUser);
 router.post("/statsiun/",  createStatsiun);
+router.patch("/statsiun/",  updateAlat);
+router.delete("/statsiun/",  deleteAlat);
+
 
 
 // router untuk memanggil data statsiun sesuai dengan username
